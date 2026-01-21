@@ -1,0 +1,56 @@
+@use '../style/flow-common';
+
+.f-flow {
+  height: 100vh;
+}
+
+.node-icon {
+  pointer-events: none;
+}
+
+.node-label {
+  position: absolute;
+  bottom: -32px;
+  left: -50%;
+  right: -50%;
+  display: flex;
+  justify-content: center;
+
+  span {
+    padding: 4px 12px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 4px;
+  }
+}
+
+::ng-deep f-flow {
+  @include flow-common.connection;
+  @include flow-common.connection-marker;
+
+  .f-background {
+    background-color: #f3f3f3;
+
+    circle {
+      fill: #d2d3d6;
+    }
+  }
+
+  .f-connection {
+
+    &:hover {
+      stroke: #045c8f17;
+    }
+  }
+}
+
+.f-node {
+  @include flow-common.node;
+
+  &.f-selected {
+    outline: 2px solid var(--node-selected-border-color);
+  }
+}
+
+@include flow-common.connector;
+@include flow-common.examples-toolbar;

@@ -1,9 +1,12 @@
 import { ChangeDetectorRef, Component, computed, effect, inject, Injectable, Injector, signal, untracked, viewChild } from '@angular/core';
+import { IPoint } from '@foblex/2d';
 import { EFConnectionType, EFMarkerType, FCanvasComponent, FCreateConnectionEvent, FFlowComponent, FFlowModule, FMoveNodesEvent, FSelectionChangeEvent, FZoomDirective } from '@foblex/flow';
 import { Mutator } from '@foblex/mutator';
 import { generateGuid } from '@foblex/utils';
 import { ICompleteNodeData, IFlowState } from '../../../../shared/models/node.model';
 import { NodeDataRepository } from '../../../../shared/repositories/data-node.repository';
+import { ElkLayoutService } from '../../../../shared/services/graph/elkjs-layout-service';
+import { CanvasActions } from "../canvas-actions/canvas-actions";
 import { UndoRedo } from "../undo-redo/undo-redo";
 
 @Injectable()
@@ -15,7 +18,7 @@ class FlowState extends Mutator<IFlowState> {
   templateUrl: './canvas.html',
   styleUrl: './canvas.scss',
   providers: [FlowState, NodeDataRepository],
-  imports: [FFlowModule, FZoomDirective, UndoRedo],
+  imports: [FFlowModule, FZoomDirective, UndoRedo, CanvasActions],
 })
 export class Canvas {
   public eMarkerType = EFMarkerType;
@@ -23,13 +26,17 @@ export class Canvas {
 
   protected readonly state = inject(FlowState);
   protected readonly nodeDataRepo = inject(NodeDataRepository);
+  protected readonly elkLayout = inject(ElkLayoutService);
 
   private readonly _injector = inject(Injector);
   private readonly _changeDetectorRef = inject(ChangeDetectorRef);
 
   private readonly _flow = viewChild.required(FFlowComponent);
   private readonly _canvas = viewChild.required(FCanvasComponent);
+  private readonly _fZoom = viewChild.required(FZoomDirective);
   private readonly _currentSnapshot = signal<IFlowState | null>(null);
+
+  protected readonly isLayouting = signal(false);
 
   protected readonly nodes = computed(() => {
     const stateSnapshot = this._currentSnapshot();
@@ -137,6 +144,67 @@ export class Canvas {
     this._changeDetectorRef.detectChanges();
   }
 
+  protected async applyAutoLayout(): Promise<void> {
+    await this._applyLayout();
+  }
+
+  private async _applyLayout(): Promise<void> {
+    this.isLayouting.set(true);
+
+    try {
+      const snapshot = this._currentSnapshot();
+      if (!snapshot) return;
+
+      const elkNodes = Object.values(snapshot.nodes).map(node => { 
+        return {
+          id: node.id,
+          width: 108,
+          height: 138
+        };
+      });
+
+      const elkEdges = Object.values(snapshot.connections).map(conn => ({
+        id: conn.id,
+        sources: [this._extractNodeId(conn.source)],
+        targets: [this._extractNodeId(conn.target)]
+      }));
+
+      // Calcular layout
+      const layoutResult = await this.elkLayout.calculateLayout(
+        elkNodes,
+        elkEdges,
+        {
+          direction: 'RIGHT',
+          nodeSpacing: 80,
+          layerSpacing: 150
+        }
+      );
+
+      // Resetar flow para evitar conflitos de posição
+      this._flow()?.reset();
+
+      // Aplicar novas posições
+      const nodeUpdates: Record<string, { position: IPoint }> = {};
+      
+      for (const [nodeId, position] of layoutResult.nodes.entries()) {
+        nodeUpdates[nodeId] = { position };
+      }
+
+      // Atualizar state (vai para o histórico de undo/redo)
+      this.state.update({ nodes: nodeUpdates });
+
+    } catch (error) {
+      console.error('Erro ao aplicar layout:', error);
+    } finally {
+      this.isLayouting.set(false);
+    }
+  }
+
+  private _extractNodeId(connectorId: string): string {
+    // "node1-output-0" -> "node1"
+    return connectorId.split('-')[0];
+  }
+
   protected onChangeSelection(event: FSelectionChangeEvent): void {
     // Não salvar seleções por enquanto
     return ;
@@ -150,6 +218,10 @@ export class Canvas {
   }
 
   public onLoaded(): void {
+    this.resetScaleAndCenter();
+  }
+
+  protected resetScaleAndCenter(): void {
     this._canvas().resetScaleAndCenter(false);
   }
 
@@ -167,6 +239,14 @@ export class Canvas {
         }
       });
     }
+  }
+
+  protected zoomIn(): void {
+    this._fZoom().zoomIn();
+  }
+
+  protected zoomOut(): void {
+    this._fZoom().zoomOut();
   }
 
   protected undo(): void {

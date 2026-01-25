@@ -5,6 +5,17 @@
   (redo)="redo()"
 ></app-undo-redo>
 
+<!-- <button (click)="applyAutoLayout()" class="primary auto-layout">
+  <img src="magic.svg" alt="">
+</button> -->
+
+<app-canvas-actions
+  (autoLayout)="applyAutoLayout()"
+  (center)="resetScaleAndCenter()"
+  (zoomIn)="zoomIn()"
+  (zoomOut)="zoomOut()"
+/>
+
 <!-- Componente principal do canva -->
 <f-flow
   fDraggable

@@ -1,0 +1,23 @@
+:host {
+  display: flex;
+  gap: 8px;
+  position: absolute;
+  z-index: 2;
+  top: 24px;
+  left: 24px;
+
+  button {
+    width: 40px;
+    height: 40px;
+    margin: 0;
+    padding: 0;
+    border-radius: 4px;
+    border: 1px solid #d3d3d3;
+    background-color: #ededed;
+    
+    &:not([disabled]) {
+      background-color: #fff;
+      cursor: pointer;
+    }
+  }
+}

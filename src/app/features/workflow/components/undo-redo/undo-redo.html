@@ -1,0 +1,7 @@
+<button [disabled]="!canUndo()" (click)="undo.emit(true)">
+  <img src="undo-2.svg" alt="" />
+</button>
+
+<button [disabled]="!canRedo()" (click)="redo.emit(true)">
+  <img src="redo-2.svg" alt="" />
+</button>

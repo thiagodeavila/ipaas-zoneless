@@ -1,1 +1,15 @@
-<p>node-actions works!</p>
+<button (click)="$event.stopPropagation()">
+  <img src="info.svg" alt="" />
+</button>
+
+<button (click)="$event.stopPropagation(); settings.emit(true)">
+  <img src="settings.svg" alt="" />
+</button>
+
+<button (click)="$event.stopPropagation(); copy.emit(true)">
+  <img src="copy.svg" alt="" />
+</button>
+
+<button (click)="$event.stopPropagation(); remove.emit(true)">
+  <img src="trash.svg" alt="" />
+</button>

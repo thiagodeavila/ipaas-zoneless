@@ -5,10 +5,6 @@
   (redo)="redo()"
 ></app-undo-redo>
 
-<!-- <button (click)="applyAutoLayout()" class="primary auto-layout">
-  <img src="magic.svg" alt="">
-</button> -->
-
 <app-canvas-actions
   (autoLayout)="applyAutoLayout()"
   (center)="resetScaleAndCenter()"
@@ -103,6 +99,9 @@
         fInputConnectableSide="left"
         [fInputCategory]="node.category"
       >
+        <!-- Ações do nó (info, configuração, duplicar e excluir) -->
+        <app-node-actions/>
+
         <!-- Ícone do componente -->
         <img [src]="node.icon" width="50" height="50" class="node-icon" />
 

@@ -57,6 +57,12 @@
   &.f-selected {
     outline: 2px solid var(--node-selected-border-color);
   }
+
+  &:hover {
+    app-node-actions {
+      visibility: visible;
+    }
+  }
 }
 
 @include flow-common.connector;

@@ -1,0 +1,46 @@
+:host {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -40px;
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 4px;
+  border: 1px solid #dedede;
+  background-color: #ffffff;
+  visibility: hidden;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -12px;
+    right: -12px;
+    height: 40px;
+  }
+
+  button {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    border: none;
+    z-index: 3;
+    cursor: pointer;
+
+    &:hover {
+      img {
+        background-color: #dedede;
+      }
+    }
+
+    img {
+      width: 16px;
+      height: 16px;
+      padding: 4px;
+      border-radius: 4px;
+      background-color: #ffffff;
+    }
+  }
+}

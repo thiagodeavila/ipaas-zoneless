@@ -7,6 +7,7 @@ import { ICompleteNodeData, IFlowState } from '../../../../shared/models/node.mo
 import { NodeDataRepository } from '../../../../shared/repositories/data-node.repository';
 import { ElkLayoutService } from '../../../../shared/services/graph/elkjs-layout-service';
 import { CanvasActions } from "../canvas-actions/canvas-actions";
+import { NodeActions } from "../node-actions/node-actions";
 import { UndoRedo } from "../undo-redo/undo-redo";
 
 @Injectable()
@@ -18,7 +19,7 @@ class FlowState extends Mutator<IFlowState> {
   templateUrl: './canvas.html',
   styleUrl: './canvas.scss',
   providers: [FlowState, NodeDataRepository],
-  imports: [FFlowModule, FZoomDirective, UndoRedo, CanvasActions],
+  imports: [FFlowModule, FZoomDirective, UndoRedo, CanvasActions, NodeActions],
 })
 export class Canvas {
   public eMarkerType = EFMarkerType;

@@ -1,0 +1,39 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-height: 0;
+}
+.side-list {
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    color: #444444;
+
+    img {
+      &.expanded {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  &__item {
+    display: flex;
+    gap: 8px;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #dedede;
+    background-color: #ffffff;
+
+    span {
+      line-height: 24px;
+    }
+  }
+
+  &__item-icon {
+    width: 24px;
+    height: 24px; 
+  }
+}

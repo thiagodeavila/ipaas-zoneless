@@ -1,0 +1,17 @@
+<cdk-accordion>
+  
+  <cdk-accordion-item #accordionItem="cdkAccordionItem">
+    <div class="side-list__header">
+      <b>Aplicativos</b>
+      <img src="chevron-down.svg" [class.expanded]="accordionItem.expanded"  (click)="accordionItem.toggle()">
+    </div>
+
+    @if(accordionItem.expanded) {
+      <div class="side-list__item" fExternalItem [fData]="data">
+        <img class="side-list__item-icon" src="google.svg" alt="">
+        <span>Google</span>
+      </div>
+    }
+  </cdk-accordion-item>
+</cdk-accordion>
+

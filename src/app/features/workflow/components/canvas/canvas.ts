@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, computed, effect, inject, Injectable, Injector, signal, untracked, viewChild } from '@angular/core';
 import { IPoint } from '@foblex/2d';
-import { EFConnectionType, EFMarkerType, FCanvasComponent, FCreateConnectionEvent, FFlowComponent, FFlowModule, FMoveNodesEvent, FSelectionChangeEvent, FZoomDirective } from '@foblex/flow';
+import { EFConnectionType, EFMarkerType, FCanvasComponent, FCreateConnectionEvent, FCreateNodeEvent, FFlowComponent, FFlowModule, FMoveNodesEvent, FSelectionChangeEvent, FZoomDirective } from '@foblex/flow';
 import { Mutator } from '@foblex/mutator';
 import { generateGuid } from '@foblex/utils';
 import { ICompleteNodeData, IFlowState } from '../../../../shared/models/node.model';
@@ -19,7 +19,13 @@ class FlowState extends Mutator<IFlowState> {
   templateUrl: './canvas.html',
   styleUrl: './canvas.scss',
   providers: [FlowState, NodeDataRepository],
-  imports: [FFlowModule, FZoomDirective, UndoRedo, CanvasActions, NodeActions],
+  imports: [
+    FFlowModule,
+    FZoomDirective,
+    UndoRedo,
+    CanvasActions,
+    NodeActions
+  ]
 })
 export class Canvas {
   public eMarkerType = EFMarkerType;
@@ -119,18 +125,18 @@ export class Canvas {
     effect(() => {
       this.state.changes();
 
-      untracked(() => { 
+      untracked(() => {
         const spapshot = this.state.getSnapshot();
         this._currentSnapshot.set(spapshot);
         this._applyChanges()
       });
     }, { injector: this._injector });
   }
-  
+
   private _applyChanges(): void {
     const snapshot = this.state.getSnapshot();
     if (!snapshot) return;
-    
+
     // this._reCenterCanvasIfUndoneToFirstStep();
     this._applySelectionChanges(snapshot);
   }
@@ -156,7 +162,7 @@ export class Canvas {
       const snapshot = this._currentSnapshot();
       if (!snapshot) return;
 
-      const elkNodes = Object.values(snapshot.nodes).map(node => { 
+      const elkNodes = Object.values(snapshot.nodes).map(node => {
         return {
           id: node.id,
           width: 108,
@@ -186,7 +192,7 @@ export class Canvas {
 
       // Aplicar novas posições
       const nodeUpdates: Record<string, { position: IPoint }> = {};
-      
+
       for (const [nodeId, position] of layoutResult.nodes.entries()) {
         nodeUpdates[nodeId] = { position };
       }
@@ -208,7 +214,7 @@ export class Canvas {
 
   protected onChangeSelection(event: FSelectionChangeEvent): void {
     // Não salvar seleções por enquanto
-    return ;
+    return;
 
     this.state.update({
       selection: {
@@ -224,6 +230,26 @@ export class Canvas {
 
   protected resetScaleAndCenter(): void {
     this._canvas().resetScaleAndCenter(false);
+  }
+
+  protected onCreateNode(event: FCreateNodeEvent): void {
+    const node = {
+      id: generateGuid(),
+      size: { width: 108, height: 138 },
+      position: event.rect,
+    };
+
+    this.nodeDataRepo.setNodeData(node.id, {
+      title: event.data?.title || '',
+      icon: event.data?.icon || '',
+      category: event.data?.category || ''
+    });
+
+    this.state.create({
+      nodes: {
+        [node.id]: node
+      }
+    });
   }
 
   protected onCreateConnection(event: FCreateConnectionEvent): void {
@@ -270,7 +296,7 @@ export class Canvas {
     const updates = Object.fromEntries(
       event.fNodes.map(({ id, position }) => [id, { position }])
     );
-    
+
     this.state.update({
       nodes: updates
     });

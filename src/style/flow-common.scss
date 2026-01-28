@@ -182,8 +182,8 @@
 
 @mixin connectors {
   position: absolute;
-  width: 12px;
-  height: 12px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
   border: 2px solid var(--node-border-color);
   background-color: var(--node-background-color);

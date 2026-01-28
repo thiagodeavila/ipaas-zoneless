@@ -1,7 +1,8 @@
 @use '../../../../../style/flow-common';
 
 :host {
-  display: contents;
+  position: relative;
+  width: 100%;
 }
 
 // Define canva como tela cheia

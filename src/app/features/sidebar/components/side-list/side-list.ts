@@ -16,8 +16,23 @@ export class SideList {
   itemList = input<INodeStaticData>();
 
   data = {
-    title:'titulo',
+    componentId: 'google_id',
+    title:'Google',
     icon: 'google.svg',
-    category: 'component'
+    category: 'component',
+  };
+
+  data2 = {
+    componentId: 'chatgpt_id',
+    title:'Chatgpt',
+    icon: 'chatgpt.svg',
+    category: 'component',
+  };
+
+  data3 = {
+    componentId: 'stripe_id',
+    title:'Stripe',
+    icon: 'stripe.svg',
+    category: 'component',
   };
 }

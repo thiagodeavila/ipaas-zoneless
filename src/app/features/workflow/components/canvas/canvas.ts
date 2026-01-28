@@ -50,7 +50,7 @@ export class Canvas {
     if (!stateSnapshot) return [];
 
     return Object.values(stateSnapshot.nodes).map(nodeState => {
-      const staticData = this.nodeDataRepo.getNodeData(nodeState.id);
+      const staticData = this.nodeDataRepo.getNodeData(nodeState.componentId);
       return {
         ...nodeState,
         ...staticData
@@ -70,21 +70,27 @@ export class Canvas {
 
   private _initializeWithData(): void {
     // 1. Registrar dados estáticos, futuramente será com dados do backend
-    this.nodeDataRepo.setNodeData('node1', {
+    this.nodeDataRepo.setNodeData('webhook_id', {
       title: 'Webook',
       icon: 'webhook.svg',
       category: 'start'
     });
 
-    this.nodeDataRepo.setNodeData('node2', {
+    this.nodeDataRepo.setNodeData('google_id', {
       title: 'Google',
       icon: 'google.svg',
       category: 'component'
     });
 
-    this.nodeDataRepo.setNodeData('node3', {
+    this.nodeDataRepo.setNodeData('chatgpt_id', {
       title: 'Chatgpt',
       icon: 'chatgpt.svg',
+      category: 'component'
+    });
+
+    this.nodeDataRepo.setNodeData('stripe_id', {
+      title: 'Stripe',
+      icon: 'stripe.svg',
       category: 'component'
     });
 
@@ -93,14 +99,17 @@ export class Canvas {
       nodes: {
         'node1': {
           id: 'node1',
+          componentId: 'webhook_id',
           position: { x: 0, y: 200 }
         },
         'node2': {
           id: 'node2',
+          componentId: 'google_id',
           position: { x: 300, y: 200 }
         },
         'node3': {
           id: 'node3',
+          componentId: 'chatgpt_id',
           position: { x: 600, y: 200 }
         }
       },
@@ -209,7 +218,7 @@ export class Canvas {
 
   private _extractNodeId(connectorId: string): string {
     // "node1-output-0" -> "node1"
-    return connectorId.split('-')[0];
+    return connectorId.substring(0, connectorId.lastIndexOf('-'));
   }
 
   protected onChangeSelection(event: FSelectionChangeEvent): void {
@@ -235,15 +244,10 @@ export class Canvas {
   protected onCreateNode(event: FCreateNodeEvent): void {
     const node = {
       id: generateGuid(),
+      componentId: event.data.componentId,
       size: { width: 108, height: 138 },
       position: event.rect,
     };
-
-    this.nodeDataRepo.setNodeData(node.id, {
-      title: event.data?.title || '',
-      icon: event.data?.icon || '',
-      category: event.data?.category || ''
-    });
 
     this.state.create({
       nodes: {

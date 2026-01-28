@@ -22,12 +22,23 @@
   &__item {
     display: flex;
     gap: 8px;
-    padding: 8px;
-    border-radius: 4px;
-    border: 1px solid #dedede;
+    margin-top: 8px;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #efefef;
     background-color: #ffffff;
+    cursor: pointer;
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none;    /* Firefox */
+    -ms-user-select: none;     /* IE10+ and Edge */
+    user-select: none;         /* Standard property */
+
+    &:hover {
+      background-color: #f3f3f3;
+    }
 
     span {
+      font-size: 14px;
       line-height: 24px;
     }
   }

@@ -9,6 +9,7 @@ export interface INodeStaticData {
 
 export interface INodeState {
   id: string;
+  componentId: string;
   position: IPoint;
   size?: { width: number; height: number };
 }

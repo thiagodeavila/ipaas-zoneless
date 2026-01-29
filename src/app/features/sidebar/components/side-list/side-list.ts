@@ -25,7 +25,7 @@ export class SideList {
   data2 = {
     componentId: 'chatgpt_id',
     title:'Chatgpt',
-    icon: 'chatgpt.svg',
+    icon: 'chat.svg',
     category: 'component',
   };
 

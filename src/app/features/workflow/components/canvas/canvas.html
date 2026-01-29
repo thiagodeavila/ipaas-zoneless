@@ -27,10 +27,12 @@
   <!-- Fundo do canva -->
   <f-background>
     <!-- Padrão com pontinhos -->
-    <f-circle-pattern [radius]="30" />
+    <f-circle-pattern [radius]="24" />
   </f-background>
 
   <f-canvas [fZoom]="true" [debounceTime]="200">
+    <f-snap-connection [fSnapThreshold]="50" [fType]="eConnectionType.SEGMENT"></f-snap-connection>
+
     <f-connection-for-create fBehavior="fixed" [fType]="eConnectionType.SEGMENT" [fOffset]="32">
       <!-- Ponta da seta durante criação da conexão -->
       <svg
@@ -92,24 +94,32 @@
       <div
         fNode
         fDragHandle
-        fNodeInput
         [fNodeId]="node.id"
-        [fInputId]="node.id + '-input'"
         [fNodePosition]="node.position"
         fOutputConnectableSide="right"
         fInputConnectableSide="left"
-        [fInputCategory]="node.category"
+        [ngClass]="node.category"
       >
         <!-- Ações do nó (info, configuração, duplicar e excluir) -->
         <app-node-actions/>
 
         <!-- Ícone do componente -->
-        <img [src]="node.icon" width="50" height="50" class="node-icon" />
+        <img [src]="node.icon" class="node-icon" />
 
         <!-- Título do componente -->
         <div class="node-label">
           <span>{{ node.title }}</span>
         </div>
+
+        <!-- Ponto para receber uma conexão (círculo do lado esquerdo) -->
+        @if (node.category !== 'start') {
+          <div
+            class="left"
+            fNodeInput
+            [fInputId]="node.id + '-input'"
+            [fInputCategory]="node.category"
+          ></div>
+        }
 
         <!-- Ponto para iniciar uma conexão (círculo do lado direito) -->
         <div

@@ -1,3 +1,4 @@
+import { NgClass } from '@angular/common';
 import { ChangeDetectorRef, Component, computed, effect, inject, Injectable, Injector, signal, untracked, viewChild } from '@angular/core';
 import { IPoint } from '@foblex/2d';
 import { EFConnectionType, EFMarkerType, FCanvasComponent, FCreateConnectionEvent, FCreateNodeEvent, FFlowComponent, FFlowModule, FMoveNodesEvent, FSelectionChangeEvent, FZoomDirective } from '@foblex/flow';
@@ -24,8 +25,9 @@ class FlowState extends Mutator<IFlowState> {
     FZoomDirective,
     UndoRedo,
     CanvasActions,
-    NodeActions
-  ]
+    NodeActions,
+    NgClass
+]
 })
 export class Canvas {
   public eMarkerType = EFMarkerType;
@@ -73,25 +75,29 @@ export class Canvas {
     this.nodeDataRepo.setNodeData('webhook_id', {
       title: 'Webook',
       icon: 'webhook.svg',
-      category: 'start'
+      category: 'start',
+      componentId: 'webhook_id'
     });
 
     this.nodeDataRepo.setNodeData('google_id', {
       title: 'Google',
       icon: 'google.svg',
-      category: 'component'
+      category: 'component',
+      componentId: 'google_id'
     });
 
     this.nodeDataRepo.setNodeData('chatgpt_id', {
       title: 'Chatgpt',
-      icon: 'chatgpt.svg',
-      category: 'component'
+      icon: 'chat.svg',
+      category: 'component',
+      componentId: 'chatgpt_id'
     });
 
     this.nodeDataRepo.setNodeData('stripe_id', {
       title: 'Stripe',
       icon: 'stripe.svg',
-      category: 'component'
+      category: 'component',
+      componentId: 'stripe_id'
     });
 
     // 2. Inicializar estado dinâmico no Mutator. O flow da integração.

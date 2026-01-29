@@ -1,6 +1,5 @@
 <cdk-accordion>
-  
-  <cdk-accordion-item #accordionItem="cdkAccordionItem">
+  <cdk-accordion-item #accordionItem="cdkAccordionItem" [expanded]="true">
     <div class="side-list__header">
       <b>Aplicativos</b>
       <img src="chevron-down.svg" [class.expanded]="accordionItem.expanded"  (click)="accordionItem.toggle()">
@@ -13,7 +12,7 @@
       </div>
 
       <div class="side-list__item" fExternalItem [fData]="data2">
-        <img class="side-list__item-icon" src="chatgpt.svg" alt="">
+        <img class="side-list__item-icon" src="chat.svg" alt="">
         <span>Chatgpt</span>
       </div>
 

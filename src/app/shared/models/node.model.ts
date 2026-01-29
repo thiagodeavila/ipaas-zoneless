@@ -2,6 +2,7 @@ import { IPoint } from '@foblex/2d';
 
 // Static data: Dados dinâmicos ou de negócio
 export interface INodeStaticData {
+  componentId: string;
   title: string;
   icon: string;
   category: string;

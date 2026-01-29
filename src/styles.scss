@@ -3,7 +3,10 @@
 html, body {
   margin: 0;
   padding: 0;
-  font-family: "Open-sans", sans-serif;
+  font-family: "Open sans", sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: -0.2px;
 }
 
 * {

@@ -1,0 +1,26 @@
+<div class="header__data"><b>Nome do projeto</b> / <span>Nome da integração</span></div>
+
+<div class="header__switch-canva">
+  <div
+    class="header__switch-button"
+    [class.header__switch-button--active]="currentTab() === CanvaTab.editor"
+  >
+    Editor
+  </div>
+
+  <div
+    class="header__switch-button"
+    [class.header__switch-button--active]="currentTab() === CanvaTab.executions"
+  >
+    Execuções
+  </div>
+</div>
+
+<div class="header__actions">
+  <button class="header__action header__action--scratch">
+    <span>Salvar rascunho</span>
+  </button>
+  <button class="header__action header__action--publish">
+    <span>Publicar diagrama</span>
+  </button>
+</div>

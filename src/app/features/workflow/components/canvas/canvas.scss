@@ -7,7 +7,7 @@
 
 // Define canva como tela cheia
 .f-flow {
-  height: 100vh;
+  height: calc(100vh - 67px);
 }
 
 // Remove interação com ícone dos componentes

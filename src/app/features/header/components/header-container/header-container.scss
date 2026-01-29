@@ -1,0 +1,74 @@
+:host {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 24px;
+  border-bottom: 1px solid #e5e5e5;
+
+  .header {
+    &__data {
+      display: flex;
+      gap: 4px;
+      color: #444444;
+      font-size: 14px;
+      line-height: 34px;
+    }
+
+    &__switch-canva {
+      position: absolute;
+      top: 48px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1;
+      display: flex;
+      gap: 4px;
+      padding: 4px;
+      border-radius: 4px;
+      background-color: #e0e0e0;
+      margin-bottom: -48px;
+    }
+
+    &__switch-button {
+      font-size: 12px;
+      padding: 0 12px;
+      color: #444444;
+      font-weight: 500;
+      line-height: 26px;
+      border-radius: 4px;
+      cursor: pointer;
+
+      &--active {
+        background-color: #fff;
+      }
+    }
+
+    &__actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    &__action {
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 20px;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+
+      &--scratch {
+        color: #045B8F;
+        border: 1px solid #045B8F;
+        background-color: #fff;
+      }
+
+      &--publish {
+        color: #fff;
+        border: none;
+        
+        background-image: linear-gradient(90deg, #045B8F 0%, #0C8BD7 138.79%);
+        border: 1px solid linear-gradient(90deg, #045B8F 0%, #0C8BD7 138.79%);
+      }
+    }
+  }
+
+}

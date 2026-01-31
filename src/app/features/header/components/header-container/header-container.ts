@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { CanvaTab } from '../../enums/canva.enum';
+import { WorkflowTab } from '../../enums/tab.enum';
 import { WorkflowTabsService } from '../../services/tab-service';
 
 @Component({
@@ -9,7 +9,7 @@ import { WorkflowTabsService } from '../../services/tab-service';
   styleUrl: './header-container.scss',
 })
 export class HeaderContainer {
-  CanvaTab = CanvaTab;
+  WorkflowTab = WorkflowTab;
 
   workflowTabsService = inject(WorkflowTabsService);
 }

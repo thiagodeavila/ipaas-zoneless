@@ -5,7 +5,7 @@ import { EFConnectionType, EFMarkerType, FCanvasComponent, FCreateConnectionEven
 import { Mutator } from '@foblex/mutator';
 import { generateGuid } from '@foblex/utils';
 import { NodeDataRepository } from '../../repositories/data-node.repository';
-import { ElkLayoutService } from '../../services/graph/elkjs-layout-service';
+import { ElkLayoutService } from '../../services/elkjs-layout-service';
 import { CanvasActions } from "../canvas-actions/canvas-actions";
 import { ICompleteNodeData, IFlowState } from '../models/node.model';
 import { NodeActions } from "../node-actions/node-actions";

@@ -1,26 +1,26 @@
 import { computed, Injectable, signal } from '@angular/core';
-import { CanvaTab } from '../enums/canva.enum';
+import { WorkflowTab } from '../enums/tab.enum';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WorkflowTabsService {
-  private _activeTab = signal<CanvaTab>(CanvaTab.editor);
+  private _activeTab = signal<WorkflowTab>(WorkflowTab.editor);
   
   activeTab = this._activeTab.asReadonly();
 
-  isEditorActive = computed(() => this._activeTab() === CanvaTab.editor);
-  isExecutionsActive = computed(() => this._activeTab() === CanvaTab.executions);
+  isEditorActive = computed(() => this._activeTab() === WorkflowTab.editor);
+  isExecutionsActive = computed(() => this._activeTab() === WorkflowTab.executions);
 
-  private setActiveTab(tab: CanvaTab): void {
+  private setActiveTab(tab: WorkflowTab): void {
     this._activeTab.set(tab);
   }
 
   switchToEditor(): void {
-    this.setActiveTab(CanvaTab.editor);
+    this.setActiveTab(WorkflowTab.editor);
   }
 
   switchToExecutions(): void {
-    this.setActiveTab(CanvaTab.executions);
+    this.setActiveTab(WorkflowTab.executions);
   }
 }

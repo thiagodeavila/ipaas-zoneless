@@ -2,8 +2,12 @@
   <app-side-container/>
   
   <div class="right-container">
-    <app-header-container/>
-    <app-canvas/>
+    <app-header-container (onChangetab)="currentTab.set($event)"/>
+    @if (currentTab() === CanvaTab.editor) {
+      <app-canvas/>
+    } @else {
+      <app-canvas-view/>
+    }
   </div>
 </div>
 

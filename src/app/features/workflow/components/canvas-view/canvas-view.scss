@@ -1,0 +1,78 @@
+@use '../../../../../style/flow-common';
+
+:host {
+  position: relative;
+  width: 100%;
+}
+
+// Define canva como tela cheia
+.f-flow {
+  height: calc(100vh - 67px);
+}
+
+// Remove interação com ícone dos componentes
+.node-icon {
+  pointer-events: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+}
+
+// Estilo do título do componente
+.node-label {
+  position: absolute;
+  bottom: -32px;
+  left: -50%;
+  right: -50%;
+  display: flex;
+  justify-content: center;
+
+  span {
+    padding: 4px 12px;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 4px;
+  }
+}
+
+// Estilo do flow, conexões e nós
+::ng-deep f-flow {
+  @include flow-common.connection;
+  @include flow-common.connection-marker;
+  
+  .f-background {
+    background-color: #f3f3f3;
+
+    circle {
+      fill: #d2d3d6;
+    }
+  }
+
+  .f-connection {
+    &:hover {
+      stroke: #045c8f17;
+    }
+  }
+}
+
+.f-node {
+  @include flow-common.node;
+
+  &.f-selected {
+    outline: 2px solid var(--node-selected-border-color);
+  }
+
+  &:hover {
+    app-node-actions {
+      visibility: visible;
+    }
+  }
+
+  &.start {
+    border-top-left-radius: 36px;
+    border-bottom-left-radius: 36px;
+  }
+}
+
+@include flow-common.connector;
+@include flow-common.examples-toolbar;

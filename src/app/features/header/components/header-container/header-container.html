@@ -4,6 +4,7 @@
   <div
     class="header__switch-button"
     [class.header__switch-button--active]="currentTab() === CanvaTab.editor"
+    (click)="currentTab.set(CanvaTab.editor)"
   >
     Editor
   </div>
@@ -11,6 +12,7 @@
   <div
     class="header__switch-button"
     [class.header__switch-button--active]="currentTab() === CanvaTab.executions"
+    (click)="currentTab.set(CanvaTab.executions)"
   >
     Execuções
   </div>

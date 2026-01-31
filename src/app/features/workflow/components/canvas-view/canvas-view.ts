@@ -2,9 +2,9 @@ import { NgClass } from '@angular/common';
 import { Component, computed, inject, Injectable, signal, viewChild } from '@angular/core';
 import { EFConnectionType, EFMarkerType, FCanvasComponent, FFlowModule, FZoomDirective } from '@foblex/flow';
 import { Mutator } from '@foblex/mutator';
-import { ICompleteNodeData, IFlowState, INodeState } from '../../../../shared/models/node.model';
-import { NodeDataRepository } from '../../../../shared/repositories/data-node.repository';
+import { NodeDataRepository } from '../../repositories/data-node.repository';
 import { CanvasActions } from "../canvas-actions/canvas-actions";
+import { ICompleteNodeData, IFlowState, INodeState } from '../models/node.model';
 import { NodeActions } from "../node-actions/node-actions";
 
 @Injectable()

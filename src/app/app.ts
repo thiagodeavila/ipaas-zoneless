@@ -1,10 +1,11 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderContainer } from "./features/header/components/header-container/header-container";
+import { CanvaTab } from './features/header/enums/canva.enum';
+import { WorkflowTabsService } from './features/header/services/tab-service';
 import { SideContainer } from "./features/sidebar/components/side-container/side-container";
 import { CanvasView } from "./features/workflow/components/canvas-view/canvas-view";
 import { Canvas } from "./features/workflow/components/canvas/canvas";
-import { CanvaTab } from './shared/enums/canva.enum';
 
 @Component({
   selector: 'app-root',
@@ -16,5 +17,6 @@ export class App {
   CanvaTab = CanvaTab;
 
   protected readonly title = signal('zoneless-app');
-  currentTab = signal<CanvaTab>(CanvaTab.editor);
+
+  workflowTabsService = inject(WorkflowTabsService)
 }

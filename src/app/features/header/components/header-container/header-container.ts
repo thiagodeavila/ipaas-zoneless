@@ -1,5 +1,6 @@
-import { Component, effect, output, signal } from '@angular/core';
-import { CanvaTab } from '../../../../shared/enums/canva.enum';
+import { Component, inject } from '@angular/core';
+import { CanvaTab } from '../../enums/canva.enum';
+import { WorkflowTabsService } from '../../services/tab-service';
 
 @Component({
   selector: 'app-header-container',
@@ -9,12 +10,6 @@ import { CanvaTab } from '../../../../shared/enums/canva.enum';
 })
 export class HeaderContainer {
   CanvaTab = CanvaTab;
-  currentTab = signal<CanvaTab>(CanvaTab.editor);
-  onChangetab = output<CanvaTab>();
 
-  constructor() {
-    effect(() => {
-      this.onChangetab.emit(this.currentTab());
-    });
-  }
+  workflowTabsService = inject(WorkflowTabsService);
 }

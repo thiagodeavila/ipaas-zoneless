@@ -3,16 +3,16 @@
 <div class="header__switch-canva">
   <div
     class="header__switch-button"
-    [class.header__switch-button--active]="currentTab() === CanvaTab.editor"
-    (click)="currentTab.set(CanvaTab.editor)"
+    [class.header__switch-button--active]="workflowTabsService.isEditorActive()"
+    (click)="workflowTabsService.switchToEditor()"
   >
     Editor
   </div>
 
   <div
     class="header__switch-button"
-    [class.header__switch-button--active]="currentTab() === CanvaTab.executions"
-    (click)="currentTab.set(CanvaTab.executions)"
+    [class.header__switch-button--active]="workflowTabsService.isExecutionsActive()"
+    (click)="workflowTabsService.switchToExecutions()"
   >
     Execuções
   </div>

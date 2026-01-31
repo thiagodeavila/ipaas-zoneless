@@ -1,7 +1,7 @@
 import { CdkAccordionModule } from '@angular/cdk/accordion';
 import { Component, input } from '@angular/core';
 import { FExternalItemDirective } from '@foblex/flow';
-import { INodeStaticData } from '../../../../shared/models/node.model';
+import { INodeStaticData } from '../../../workflow/components/models/node.model';
 
 @Component({
   selector: 'app-side-list',

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { INodeStaticData } from '../components/models/node.model';
+import { INodeStaticData } from '../models/node.model';
 
 @Injectable()
 export class NodeDataRepository {

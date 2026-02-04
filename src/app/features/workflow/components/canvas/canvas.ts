@@ -4,10 +4,10 @@ import { IPoint } from '@foblex/2d';
 import { EFConnectionType, EFMarkerType, FCanvasComponent, FCreateConnectionEvent, FCreateNodeEvent, FFlowComponent, FFlowModule, FMoveNodesEvent, FSelectionChangeEvent, FZoomDirective } from '@foblex/flow';
 import { Mutator } from '@foblex/mutator';
 import { generateGuid } from '@foblex/utils';
+import { ICompleteNodeData, IFlowState } from '../../models/node.model';
 import { NodeDataRepository } from '../../repositories/data-node.repository';
 import { ElkLayoutService } from '../../services/elkjs-layout-service';
 import { CanvasActions } from "../canvas-actions/canvas-actions";
-import { ICompleteNodeData, IFlowState } from '../models/node.model';
 import { NodeActions } from "../node-actions/node-actions";
 import { UndoRedo } from "../undo-redo/undo-redo";
 

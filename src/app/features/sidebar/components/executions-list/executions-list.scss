@@ -22,7 +22,7 @@
     border-top: 1px solid #efefef;
     background-color: #ffffff;
 
-    &:hover {
+    &:hover, &--selected {
       background-color: #f3f3f3;
     }
 
@@ -51,6 +51,10 @@
 
     &--error {
       background-color: #e44444;
+    }
+
+    &--running {
+      background-color: #f8a62a;
     }
   }
 
